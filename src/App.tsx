@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./App.css";
 
 function App() {
   const [result, setResult] = useState("");
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (
+    e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
+  ) => {
     const target = e.target as HTMLInputElement;
     setResult(result.concat(target.name));
   };
@@ -20,11 +22,20 @@ function App() {
       setResult("Math Error");
     }
   };
+  const handleChange = (event: any) => {
+    setResult(event.target.value);
+  };
 
   return (
     <div className="calc__calculator">
       <form>
-        <input type="text" className="calc__output" value={result} />
+        <input
+          type="text"
+          className="calc__output"
+          value={result}
+          onChange={handleChange}
+          autoFocus
+        />
       </form>
       <div className="keypad">
         <button className="clear" onClick={handleClear}>
